@@ -1,0 +1,19 @@
+{
+	 "100":{
+	 		"name" : "trans job",
+	 		"type" : "url",
+	 		"disable": 0 ,
+	 		"type_cb":"callback",
+	 		"url"  : "http://127.0.0.1:8112/trans/?rest=1",
+	 		"callback" : "console.log('trans job set')",
+	 		"year" : null,
+	 		"month": null,
+	 		"date": null,
+	 		"dayOfWeek": null,
+	 		"hour" : [3,4],
+	 		"minute" : [5],
+	 		"second":0,
+	 		"secstep":0
+	 	},
+}
+
