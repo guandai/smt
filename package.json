@@ -1,33 +1,17 @@
     {
-  "name": "feedtrans",
-  "description": "feed translater",
+  "name": "smt",
+  "description": "small tools collection",
   "version": "0.0.1",
   "private": true,
+  "license": "MIT",
+  "main": "./lib/smt",
   "dependencies": {
-    "express":"3.x",
-    "aws-sdk":"2.x",
     "winston":"0.7.1",
     "supervisor":"0.5.x",
-    "xml2js":"0.4.x",
     "request":"2.33.x",
     "mkpath":"0.1.x",
-    "js2xmlparser":"0.1.x",
-    "csv":"0.4.x",
-    "htmlparser2":"3.7.x",
-    "json2csv":"2.2.x",
-    "iconv":"2.1.x",
     "async":"x",
-    "newrelic":"x",
-    "nodemailer":"x",
     "encoding": "x",
-    "ssh2": "x",
-    "ftp": "x",
-    "csv-string":"x",
-    "MD5":"x",
-    "xmldom":"x",
-    "xpath":"x",
-    "parse5":"x",
-    "xmlserializer":"x",
-    "node-schedule":"x"
+    "MD5":"x"
   }
 }

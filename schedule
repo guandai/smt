@@ -1,5 +1,0 @@
-TRACK_HOME=$(cd "$(dirname "$0")" ; pwd -P )
-TRACK_HOME=$TRACK_HOME\/lib
-echo ${TRACK_HOME}
-cd "${TRACK_HOME}"
-node schedule
