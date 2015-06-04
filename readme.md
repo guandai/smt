@@ -301,6 +301,9 @@ npm install -g supervisor
  *replaceAll for string
  
 
+####get class name of a object
+*Object.prototype.getName
+
 
 ####finishfn
 
@@ -309,7 +312,7 @@ npm install -g supervisor
 
 
 ####trobjmem
-
  *show a object memory use
+ *@param{object} object   ,  show mem use of this param
  
 
