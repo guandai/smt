@@ -164,16 +164,6 @@ npm install -g supervisor
  
 
 
-####downreq
-
- *do something useful for buffers  when loading a uri
- * @param{string} uri         , load this uri
- * @param{string} filename    , save to this file 
- * @param{object} job         , current job object
- * @param{function} callback  , callback
- 
-
-
 
 ####joinAsArray
 

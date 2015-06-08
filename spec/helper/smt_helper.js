@@ -1,0 +1,1 @@
+//window.smt = { smt : smt };
