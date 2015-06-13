@@ -565,6 +565,19 @@ smt.joinAsArray = function(orgarr) {
 
 
 
+/*
+ * enumerate each object in a object to match valname
+ */
+smt.enmuobj = function(scope, valname, val, docb) {
+    for (var i in scope) {
+        if (scope[i][valname] === val) {
+            docb(scope, i);
+            break;
+        }
+    }
+};
+
+
 
 
 smt.func2obj = function(infunc) {

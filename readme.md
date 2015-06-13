@@ -24,14 +24,22 @@ bower install guandai/smt
 #### revertjson
 *  revert vertical and horizental in a json
 
+
+
 #### fillzero
 *  fill 0 in front of  digits by assigned digits number
+
 
 ####creatfolder
 
  *create folder by a given path and set 0777 access @param{obj} cjb , current
  * job object
  
+
+
+####enumobj
+* enumerate each object in a object to match valname
+
 
 
 ####replacepeer
