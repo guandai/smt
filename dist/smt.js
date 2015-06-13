@@ -51,6 +51,7 @@ var smtc = smt.tc = function() {
 
 
 
+
 /*
  * create folder by a given path and setp 0777 access @param{obj} cjb , current
  * job object
@@ -189,7 +190,22 @@ smt.cutdec = function(str, digits) {
 
 
 
+/*
+ *  fill 0 in front of  digits by assigned digits number
+ */
+function fillzero(str,digits){
+    if(!digits) digits=3
+    str=str.toString()
+    var pos = str.indexOf(".")
+    
+    if(pos==-1) pos=str.length
+    str=str.substring(0,pos+digits)
+    
+    var a = cutdec((str*100), 0) + "%"
 
+    
+    return a
+}
 
 
 /*

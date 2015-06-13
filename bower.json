@@ -29,13 +29,6 @@
     "test",
     "spec"
   ],
-  "dependencies": {
-    
-  },
-  "devDependencies": {
-    
-  },
-  "resolutions": {
-    
-  }
+  "dependencies": {},
+  "devDependencies": {}
 }
