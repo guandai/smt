@@ -106,6 +106,26 @@ smt.obj2reg = function(obj) {
 
 
 
+
+
+
+/*
+ *  fill 0 in front of  digits by assigned digits number
+ */
+smt.fillzero = function (str,digits){
+    if(!digits) digits=3
+    str=str.toString()
+    var pos = str.indexOf(".")
+    
+    if(pos==-1) pos=str.length
+    str=str.substring(0,pos+digits)
+    
+    var a = cutdec((str*100), 0) + "%"
+
+    return a
+}
+
+
 /*
  * replace by peer in allsettings
  */
