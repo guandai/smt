@@ -111,13 +111,14 @@ smt.obj2reg = function(obj) {
 /* 
  *revert vertical and horizental in a json
  */
-smt.revertjson =function (obj){
-    
-    var newobj={};
-    for(var r in obj ){
-        for (var c in obj[r] ){
-            if(!newobj[c]) newobj[c]={};
-            newobj[c][r]= obj[r][c];
+smt.revertjson = function(obj) {
+    var newobj = {};
+    for (var r in obj) {
+        for (var c in obj[r]) {
+            if (!newobj[c]) {
+                newobj[c] = {};
+            }
+            newobj[c][r] = obj[r][c];
         }
     }
     return newobj;
