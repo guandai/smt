@@ -58,7 +58,7 @@ module.exports = function(grunt) {
         },
         qunit: {
             files: ['spec/**/*.html'],
-            urls:['http://localhost.dz/Dropbox/Tempwork/smt/spec/qunit_spec.html']
+            urls:['http://tempwork.dz/smt/spec/qunit_spec.html']
         },
         jasmine: {
             src: ['src/**/*.js', '!src/main.js'],
@@ -123,7 +123,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jasmine');
     // Default task.
     
-    grunt.registerTask('default', ['jshint', 'qunit', 'concat', 'uglify']);
+    grunt.registerTask('default', ['jshint', 'qunit:files', 'concat', 'uglify']);
     grunt.registerTask('jasbr', ['jasmine']);
     grunt.registerTask('jasnd', ['jasmine_node']);
     grunt.registerTask('qu', ['qunit']);

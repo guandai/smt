@@ -8,6 +8,15 @@ Install "supervisor"
 npm install -g supervisor
 
 
+-node install
+
+npm install guandai/smt
+
+-or  by  bower
+
+bower install guandai/smt
+
+
 ## function list
 
 

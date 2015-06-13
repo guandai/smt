@@ -1,4 +1,4 @@
-/*! smt - v0.0.1 - 2015-06-07
+/*! smt - v0.0.1 - 2015-06-14
 * Copyright (c) 2015 twindai; Licensed  */
 // "use strict";
 
@@ -7,13 +7,14 @@ var root = this;
 
 // Create a refeence to this
 var smt = {};
-
 var isNode = false;
+
+
 
 // Export the smt object for **CommonJS**, with backwards-compatibility
 // for the old `require()` API. If we're not in CommonJS, add `smt` to the
 // global object.
-if (typeof module !== 'undefined' && module.exports) {
+if (typeof module !== "undefined" && module.exports) {
     module.exports = smt;
     root.smt = smt;
     isNode = true;
@@ -41,6 +42,14 @@ if (isNode) {
 
 
 
+/*
+ * wrapper of console.log()
+ */
+var smtc = smt.tc = function() {
+    console.log( arguments ) ;
+};
+
+
 
 /*
  * create folder by a given path and setp 0777 access @param{obj} cjb , current
@@ -61,31 +70,21 @@ smt.creatfolder = function(folderstr) {
 };
 
 
-/*
- * wrapper of console.log()
- */
-smt.tc = function() {
-    console.log.apply(null, arguments);
-};
-
-
 
 /*
  * trace conten with logger
  */
 
-var tr = smt.tr = function() {
+var smtr = smt.tr = function() {
     var allstr = "";
     for (var i in arguments) {
         allstr += arguments[i] + " ";
     }
 
     if (isNode) {
-        
         logger.log("info", allstr);
     } else {
-        
-        smt.tc(allstr);
+        smtc(allstr);
     }
 };
 
@@ -336,25 +335,23 @@ smt.arradiffb = function(arra, arrb) {
 
 
 /*
- * create array  which only A over B 
+ * create array  which only A cross with B 
  * @param{array} arra         ,  A array 
  * @param{array} arrb         ,  B array 
  * @return{array} arrd    ,  A  B same parts
  */
 smt.arraoverb = function(arra, arrb) {
-
     // var  arragt=[]
     // var  arrbgt=[]
-    var arrbin = [];
-    var testaeqb = false;
+    var arrbin = {};
     for (var a in arra) {
         for (var b in arrb) {
             if (arra[a] === arrb[b]) {
-                testaeqb = true;
-                arrbin.push(arra[a]);
+                arrbin[a]=arra[a];
             }
         }
     }
+   
     return arrbin;
 };
 

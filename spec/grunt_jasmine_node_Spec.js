@@ -67,7 +67,6 @@ describe("http test in smt", function() {
         };
         smt.httpfullbody(opt);
         setTimeout(done, 50);
-
     });
 
      it(" object slice ", function() {
@@ -75,4 +74,4 @@ describe("http test in smt", function() {
 
         expect(testresult.length).toEqual(2449);
     });
-})
+});
