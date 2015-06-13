@@ -44,7 +44,7 @@ if (isNode) {
  * wrapper of console.log()
  */
 var smtc = smt.tc = function() {
-    console.log( arguments ) ;
+    console.log(arguments);
 };
 
 
@@ -112,18 +112,22 @@ smt.obj2reg = function(obj) {
 /*
  *  fill 0 in front of  digits by assigned digits number
  */
-smt.fillzero = function (str,digits){
-    if(!digits) digits=3
-    str=str.toString()
-    var pos = str.indexOf(".")
-    
-    if(pos==-1) pos=str.length
-    str=str.substring(0,pos+digits)
-    
-    var a = cutdec((str*100), 0) + "%"
+smt.fillzero = function(str, digits) {
+    if (!digits) {
+        digits = 3;
+    }
+    str = str.toString();
+    var pos = str.indexOf(".");
 
-    return a
-}
+    if (pos === -1) {
+        pos = str.length;
+    }
+    str = str.substring(0, pos + digits);
+
+    var a = smt.cutdec((str * 100), 0) + "%";
+
+    return a;
+};
 
 
 /*
@@ -365,11 +369,11 @@ smt.arraoverb = function(arra, arrb) {
     for (var a in arra) {
         for (var b in arrb) {
             if (arra[a] === arrb[b]) {
-                arrbin[a]=arra[a];
+                arrbin[a] = arra[a];
             }
         }
     }
-   
+
     return arrbin;
 };
 
