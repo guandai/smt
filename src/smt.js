@@ -40,7 +40,7 @@ if (isNode) {
 
 
 
-/*
+/**
  * wrapper of console.log()
  */
 var smtc = smt.tc = function() {
@@ -49,7 +49,7 @@ var smtc = smt.tc = function() {
 
 
 
-/*
+/**
  * create folder by a given path and setp 0777 access @param{obj} cjb , current
  * job object
  */
@@ -69,7 +69,7 @@ smt.creatfolder = function(folderstr) {
 
 
 
-/*
+/**
  * trace conten with logger
  */
 
@@ -89,7 +89,7 @@ var smtr = smt.tr = function() {
 
 
 
-/*
+/**
  *  convert obj to regular exp.   expect obj is list of string 
  *  @param{obj} org obj   , 
  *  @return{regexp}          ,  
@@ -126,7 +126,7 @@ smt.revertjson = function(obj) {
 
 
 
-/*
+/**
  *  fill 0 in front of  digits by assigned digits number
  */
 smt.fillzero = function(str, digits) {
@@ -147,7 +147,7 @@ smt.fillzero = function(str, digits) {
 };
 
 
-/*
+/**
  * replace by peer in allsettings
  */
 
@@ -169,7 +169,7 @@ smt.replacepeer = function(replace_peer, str) {
 
 
 
-/*
+/**
  * util.ispect a object
  */
 smt.tru = function(obj, dep, show) {
@@ -182,7 +182,7 @@ smt.tru = function(obj, dep, show) {
 };
 
 
-/*
+/**
  * replace html entities to text
  */
 smt.tranHtml2Txt = function(str) {
@@ -197,7 +197,7 @@ smt.tranHtml2Txt = function(str) {
 };
 
 
-/*
+/**
  * console.log wrapper
  */
 smt.trl = function() {
@@ -212,7 +212,7 @@ smt.trl = function() {
 
 
 
-/*
+/**
  *  fill 0 in front of  digits by assigned digits number
  */
 smt.cutdec = function(str, digits) {
@@ -231,7 +231,7 @@ smt.cutdec = function(str, digits) {
 
 
 
-/*
+/**
  *  show size in mb gb
  * params
  */
@@ -255,7 +255,7 @@ smt.shortenunit = function(num) {
 
 
 
-/*
+/**
  * show process memoryuse
  */
 smt.trmem = function() {
@@ -268,7 +268,7 @@ smt.trmem = function() {
 
 
 
-/*
+/**
  * show each content in object seperately 
  */
 // smt.trn = function(obj) {
@@ -284,7 +284,7 @@ smt.trmem = function() {
 
 
 
-/*
+/**
  * find an object  size / length
  * @param{objet} obj          , current job
  * @return{int} count         , a size number in byte
@@ -300,7 +300,7 @@ smt.osize = function(obj) {
 
 
 
-/*
+/**
  * compare if a array in anoterh array, if A in B
  * @param{array} arra         ,  A array 
  * @param{array} arrb         ,  B array 
@@ -330,7 +330,7 @@ smt.arrainbtest = function(arra, arrb) {
 
 
 
-/*
+/**
  * create array  which only A have plus which only B have
  * @param{array} arra         ,  A array 
  * @param{array} arrb         ,  B array 
@@ -373,7 +373,7 @@ smt.arradiffb = function(arra, arrb) {
 
 
 
-/*
+/**
  * create array  which only A cross with B 
  * @param{array} arra         ,  A array 
  * @param{array} arrb         ,  B array 
@@ -397,7 +397,7 @@ smt.arraoverb = function(arra, arrb) {
 
 
 
-/*
+/**
  * create array  which A more than B
  * @param{array} arra         ,  A array 
  * @param{array} arrb         ,  B array 
@@ -422,7 +422,7 @@ smt.arragtb = function(arra, arrb) {
 
 
 
-/*
+/**
  * clone an object  another version
  * @param{object} obj         , current job
  */
@@ -434,7 +434,7 @@ smt.cloneobj = function(obj1) {
 
 
 
-/*
+/**
  * clone an object
  * @param{object} obj         , current job
  */
@@ -453,7 +453,7 @@ smt.clone = function(obj) {
 
 
 
-/*
+/**
  *  convert obj to arr.
  *  @param{obj} org obj   , 
  *  @return{array}          ,  
@@ -471,7 +471,7 @@ smt.obj2arr = function(obj) {
 
 
 
-/*
+/**
  *  change seconts to higher time unit.
  * @param{number} seconds       , original text to be cutyed
  * @return{String}          ,  a combination text of hour  minutes and seconds
@@ -492,7 +492,7 @@ smt.secondsToString = function(seconds) {
 
 
 
-/*
+/**
  * trace 1st level content in an object
  * @param{objet} obj          , current job 
  */
@@ -523,7 +523,7 @@ smt.tobj = function(inobject, varname, end) {
 
 
 
-/*
+/**
  * do something useful for buffers  when loading a uri
  * @param{string} str         , a input str need to be translate
  * @param{object} dictobj     , a object include map as a dict
@@ -540,7 +540,7 @@ smt.translatestr = function(str, dictobj) {
 
 
 
-/*
+/**
  * join several obj and convert to array
  * @param{array} orgarr   ,  multipal array can be used as params, which need to be join togething
  * @return{array} newarr  ,   join several obj and convert to array 
@@ -563,7 +563,7 @@ smt.joinAsArray = function(orgarr) {
 
 
 
-/*
+/**
  * enumerate each object in a object to match valname
  */
 smt.enmuobj = function(scope, valname, val, docb) {
@@ -630,7 +630,7 @@ smt.func2obj = function(infunc) {
 
 
 
-/*
+/**
  * common use for put err in option for cb refer
  * @param{option} object for current running process o refer
  * @param{err}   err we focusing on 
@@ -650,7 +650,7 @@ smt.assignErr = function(option, err, callback) {
 
 
 
-/*
+/**
  * add params for a callback
  * @param{function} infunc   ,  original callback function
  * @attribute{int} length   ,  the expected length
@@ -678,7 +678,7 @@ smt.makecb = function(infunc) {
 
 
 
-/*
+/**
  * copy appendObj data to orgObj, if the same , 
  * appendObjs content will overwrite orgobj content
  * @param{object} orgObj   ,  original object
@@ -696,7 +696,7 @@ smt.mergeobj = function(orgObj, appendObj) {
 
 
 
-/*
+/**
  * convert a string to expect length 
  * @param{mix} str   ,  a number or string need to be adept 
  * @attribute{int} length   ,  the expected length
@@ -717,7 +717,7 @@ smt.tolen = function(str, length) {
 
 
 
-/*
+/**
  * get the max number in an array 
  * @param{Array} numArray   ,  a number or string need to be adept 
  * @return{Int} return  ,  return max of result number
@@ -730,7 +730,7 @@ smt.getMaxOfArray = function(numArray) {
 
 
 
-/*
+/**
  *  fill 0 in front of  digits by assigned digits number
  */
 smt.filldigits = function(str, digits) {
@@ -746,7 +746,7 @@ smt.filldigits = function(str, digits) {
 
 
 
-/*
+/**
  *  return a yy+"_"+mm+"_"+dd+"_"+hh+"_"+mi+"_"+ss  string
  */
 smt.gettime = function(cut) {
@@ -771,7 +771,7 @@ smt.gettime = function(cut) {
 
 
 
-/*
+/**
  *  get parent path, return string
  */
 smt.uppath = function() {
@@ -781,7 +781,7 @@ smt.uppath = function() {
 
 
 
-/*
+/**
  *  get parent path, return string
  */
 String.prototype.replaceall = function(search, tostr) {
@@ -790,7 +790,7 @@ String.prototype.replaceall = function(search, tostr) {
 
 
 
-/*
+/**
  * insert char in a string
  */
 String.prototype.splice = function(idx, rem, s) {
@@ -804,7 +804,7 @@ String.prototype.splice = function(idx, rem, s) {
 
 
 
-/*
+/**
  * object slice
  */
 Object.prototype.slice = function(s, e) {
@@ -827,7 +827,7 @@ Object.defineProperty(Object.prototype, "slice", {
 
 
 
-/*
+/**
  * replaceAll for string
  */
 String.prototype.replaceAll = function(search, tostr) {
@@ -837,7 +837,7 @@ String.prototype.replaceAll = function(search, tostr) {
 
 
 
-/*
+/**
  *  get class name of a object
  */
 smt.getname = function(Object) {
@@ -849,7 +849,7 @@ smt.getname = function(Object) {
 
 
 
-/*
+/**
  * print task finished]
  */
 
@@ -863,7 +863,7 @@ smt.finishfn = function() {
 
 
 
-/*
+/**
  * show a object memory use
  *  @param{object} object   ,  show mem use of this param
  */
@@ -893,7 +893,7 @@ smt.trobjmem = function(object) {
 
 
 
-/*
+/**
  *  http request reaturn full body
  */
 smt.httpfullbody = function(opt) {
@@ -945,7 +945,7 @@ smt.httpfullbody = function(opt) {
 
 
 
-/*
+/**
  * run a serial of callbackk in an array , each cb has .run method.
  * this need to be runing with func2Obj to impliment a sync process
  * @param{funcArr} Array with str   ,  a number or string of function name
@@ -977,7 +977,7 @@ smt.runcbs = function(funcArr) {
 
 
 
-/*
+/**
  * run in serials
  */
 smt.runcbsfn = function(funcArr) {
