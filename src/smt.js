@@ -13,29 +13,29 @@ var isNode = false;
 // for the old `require()` API. If we're not in CommonJS, add `smt` to the
 // global object.
 if (typeof module !== "undefined" && module.exports) {
-    module.exports = smt;
-    root.smt = smt;
-    isNode = true;
-    console.log("Run Node mode");
+  module.exports = smt;
+  root.smt = smt;
+  isNode = true;
+  console.log("Run Node mode");
 } else {
-    root.smt = smt;
-    console.log("Run browser mode");
+  root.smt = smt;
+  console.log("Run browser mode");
 }
 
 
 if (isNode) {
-    var http = require("http");
-    var winston = require("winston");
-    var util = require("util");
-    var mkpath = require("mkpath");
-    var logger = new(winston.Logger)({
-        transports: [
-            new(winston.transports.Console)(),
-            new(winston.transports.File)({
-                filename: "log/serverlog.log"
-            })
-        ]
-    });
+  var http = require("http");
+  var winston = require("winston");
+  var util = require("util");
+  var mkpath = require("mkpath");
+  var logger = new(winston.Logger)({
+    transports: [
+      new(winston.transports.Console)(),
+      new(winston.transports.File)({
+        filename: "log/serverlog.log"
+      })
+    ]
+  });
 }
 
 
@@ -44,7 +44,7 @@ if (isNode) {
  * wrapper of console.log()
  */
 var smtc = smt.tc = function() {
-    console.log(arguments);
+  console.log(arguments);
 };
 
 
@@ -54,17 +54,17 @@ var smtc = smt.tc = function() {
  * job object
  */
 smt.creatfolder = function(folderstr) {
-    mkpath(folderstr, function(err) {
-        if (err) {
-            if (err.toString().indexOf("EEXIST") >= 0) {
-                //  smt.tr("! Folder is exist " + err);
-            }
-            return false;
-        } else {
-            //smt.tr("# FOLDER: " + folderstr + " created");
-            mkpath.sync(folderstr, 777);
-        }
-    });
+  mkpath(folderstr, function(err) {
+    if (err) {
+      if (err.toString().indexOf("EEXIST") >= 0) {
+        //  smt.tr("! Folder is exist " + err);
+      }
+      return false;
+    } else {
+      //smt.tr("# FOLDER: " + folderstr + " created");
+      mkpath.sync(folderstr, 777);
+    }
+  });
 };
 
 
@@ -74,16 +74,16 @@ smt.creatfolder = function(folderstr) {
  */
 
 var smtr = smt.tr = function() {
-    var allstr = "";
-    for (var i in arguments) {
-        allstr += arguments[i] + " ";
-    }
+  var allstr = "";
+  for (var i in arguments) {
+    allstr += arguments[i] + " ";
+  }
 
-    if (isNode) {
-        logger.log("info", allstr);
-    } else {
-        smtc(allstr);
-    }
+  if (isNode) {
+    logger.log("info", allstr);
+  } else {
+    smtc(allstr);
+  }
 };
 
 
@@ -95,13 +95,13 @@ var smtr = smt.tr = function() {
  *  @return{regexp}          ,  
  */
 smt.obj2reg = function(obj) {
-    var reg = "";
-    for (var o in obj) {
-        reg += obj[o] + "|";
-    }
-    reg = new RegExp(reg.slice(0, -1));
+  var reg = "";
+  for (var o in obj) {
+    reg += obj[o] + "|";
+  }
+  reg = new RegExp(reg.slice(0, -1));
 
-    return reg;
+  return reg;
 };
 
 
@@ -112,16 +112,16 @@ smt.obj2reg = function(obj) {
  *revert vertical and horizental in a json
  */
 smt.revertjson = function(obj) {
-    var newobj = {};
-    for (var r in obj) {
-        for (var c in obj[r]) {
-            if (!newobj[c]) {
-                newobj[c] = {};
-            }
-            newobj[c][r] = obj[r][c];
-        }
+  var newobj = {};
+  for (var r in obj) {
+    for (var c in obj[r]) {
+      if (!newobj[c]) {
+        newobj[c] = {};
+      }
+      newobj[c][r] = obj[r][c];
     }
-    return newobj;
+  }
+  return newobj;
 };
 
 
@@ -130,20 +130,20 @@ smt.revertjson = function(obj) {
  *  fill 0 in front of  digits by assigned digits number
  */
 smt.fillzero = function(str, digits) {
-    if (!digits) {
-        digits = 3;
-    }
-    str = str.toString();
-    var pos = str.indexOf(".");
+  if (!digits) {
+    digits = 3;
+  }
+  str = str.toString();
+  var pos = str.indexOf(".");
 
-    if (pos === -1) {
-        pos = str.length;
-    }
-    str = str.substring(0, pos + digits);
+  if (pos === -1) {
+    pos = str.length;
+  }
+  str = str.substring(0, pos + digits);
 
-    var a = smt.cutdec((str * 100), 0) + "%";
+  var a = smt.cutdec((str * 100), 0) + "%";
 
-    return a;
+  return a;
 };
 
 
@@ -152,18 +152,18 @@ smt.fillzero = function(str, digits) {
  */
 
 smt.replacepeer = function(replace_peer, str) {
-    //var result=str.toString()
+  //var result=str.toString()
 
-    var replace_peer_regex = smt.obj2reg(Object.keys(replace_peer).map(function(str) {
-        return str.splice(0, "\\").splice(-1, "\\");
-    }));
-    //tr(replace_peer_regex)
-    while (replace_peer_regex.test(str)) {
-        for (var r in replace_peer) {
-            str = str.replaceAll(r, replace_peer[r]);
-        }
+  var replace_peer_regex = smt.obj2reg(Object.keys(replace_peer).map(function(str) {
+    return str.splice(0, "\\").splice(-1, "\\");
+  }));
+  //tr(replace_peer_regex)
+  while (replace_peer_regex.test(str)) {
+    for (var r in replace_peer) {
+      str = str.replaceAll(r, replace_peer[r]);
     }
-    return str;
+  }
+  return str;
 };
 
 
@@ -173,12 +173,12 @@ smt.replacepeer = function(replace_peer, str) {
  * util.ispect a object
  */
 smt.tru = function(obj, dep, show) {
-    //for (var i in arguments){
-    tr(util.inspect(obj, {
-        showHidden: show,
-        depth: dep
-    }));
-    //}
+  //for (var i in arguments){
+  tr(util.inspect(obj, {
+    showHidden: show,
+    depth: dep
+  }));
+  //}
 };
 
 
@@ -186,14 +186,14 @@ smt.tru = function(obj, dep, show) {
  * replace html entities to text
  */
 smt.tranHtml2Txt = function(str) {
-    return str.replaceall("&amp;", "&")
-        .replaceall("&quot;", "\"")
-        .replaceall("&gt;", ">")
-        .replaceall("&lt;", "<")
-        .replaceall("&#39;", "'")
-        .replaceall("&#248;", "ø")
-        .replaceall("&#229;", "å")
-        .replaceall("&#230;", "æ");
+  return str.replaceall("&amp;", "&")
+    .replaceall("&quot;", "\"")
+    .replaceall("&gt;", ">")
+    .replaceall("&lt;", "<")
+    .replaceall("&#39;", "'")
+    .replaceall("&#248;", "ø")
+    .replaceall("&#229;", "å")
+    .replaceall("&#230;", "æ");
 };
 
 
@@ -201,11 +201,11 @@ smt.tranHtml2Txt = function(str) {
  * console.log wrapper
  */
 smt.trl = function() {
-    //var allstr="";
-    for (var i in arguments) {
-        smt.tr(arguments[i]);
-        //  allstr+= arguments[i] + " " ;
-    }
+  //var allstr="";
+  for (var i in arguments) {
+    smt.tr(arguments[i]);
+    //  allstr+= arguments[i] + " " ;
+  }
 };
 
 
@@ -216,13 +216,13 @@ smt.trl = function() {
  *  fill 0 in front of  digits by assigned digits number
  */
 smt.cutdec = function(str, digits) {
-    if (!digits) {
-        digits = 2;
-    }
-    str = str.toString();
-    var pos = str.indexOf(".");
-    str = str.substring(0, pos + digits);
-    return str;
+  if (!digits) {
+    digits = 2;
+  }
+  str = str.toString();
+  var pos = str.indexOf(".");
+  str = str.substring(0, pos + digits);
+  return str;
 };
 
 
@@ -237,19 +237,19 @@ smt.cutdec = function(str, digits) {
  */
 smt.shortenunit = function(num) {
 
-    if (typeof num !== "number") {
-        num = parseInt(num);
-    }
-    if (num > Math.pow(1024, 1) && num < Math.pow(1024, 2)) {
-        return smt.cutdec(num / Math.pow(1024, 1), 2).toString() + " KB";
-    }
-    if (num > Math.pow(1024, 2) && num < Math.pow(1024, 3)) {
-        return smt.cutdec(num / Math.pow(1024, 2), 2).toString() + " MB";
-    }
-    if (num > Math.pow(1024, 3) && num < Math.pow(1024, 4)) {
-        return smt.cutdec(num / Math.pow(1024, 3), 2).toString() + " GB";
-    }
-    return num;
+  if (typeof num !== "number") {
+    num = parseInt(num);
+  }
+  if (num > Math.pow(1024, 1) && num < Math.pow(1024, 2)) {
+    return smt.cutdec(num / Math.pow(1024, 1), 2).toString() + " KB";
+  }
+  if (num > Math.pow(1024, 2) && num < Math.pow(1024, 3)) {
+    return smt.cutdec(num / Math.pow(1024, 2), 2).toString() + " MB";
+  }
+  if (num > Math.pow(1024, 3) && num < Math.pow(1024, 4)) {
+    return smt.cutdec(num / Math.pow(1024, 3), 2).toString() + " GB";
+  }
+  return num;
 };
 
 
@@ -259,11 +259,11 @@ smt.shortenunit = function(num) {
  * show process memoryuse
  */
 smt.trmem = function() {
-    var pmem = process.memoryUsage();
-    for (var i in pmem) {
-        pmem[i] = smt.shortenunit(pmem[i]);
-    }
-    smt.tr("----Memory:", util.inspect(pmem), "------");
+  var pmem = process.memoryUsage();
+  for (var i in pmem) {
+    pmem[i] = smt.shortenunit(pmem[i]);
+  }
+  smt.tr("----Memory:", util.inspect(pmem), "------");
 };
 
 
@@ -290,12 +290,12 @@ smt.trmem = function() {
  * @return{int} count         , a size number in byte
  */
 smt.osize = function(obj) {
-    var count = 0;
-    for (var i in obj) {
-        i = i;
-        count++;
-    }
-    return count;
+  var count = 0;
+  for (var i in obj) {
+    i = i;
+    count++;
+  }
+  return count;
 };
 
 
@@ -307,25 +307,25 @@ smt.osize = function(obj) {
  * @return{boolean} result    , in or not in
  */
 smt.arrainbtest = function(arra, arrb) {
-    var testf = true;
-    var sizea = smt.osize(arra);
-    var count = 0;
-    for (var a in arra) {
-        for (var b in arrb) {
-            if (arra[a] === arrb[b]) {
-                count++;
-                break;
-            }
-        }
+  var testf = true;
+  var sizea = smt.osize(arra);
+  var count = 0;
+  for (var a in arra) {
+    for (var b in arrb) {
+      if (arra[a] === arrb[b]) {
+        count++;
+        break;
+      }
     }
-    if (count !== sizea) {
-        testf = false;
-    }
+  }
+  if (count !== sizea) {
+    testf = false;
+  }
 
-    //console.log(arra,arrb);
-    //console.log(testf);
-    //console.log(count);
-    return testf;
+  //console.log(arra,arrb);
+  //console.log(testf);
+  //console.log(count);
+  return testf;
 };
 
 
@@ -337,38 +337,38 @@ smt.arrainbtest = function(arra, arrb) {
  * @return{array} arrd    ,  A  B different parts
  */
 smt.arradiffb = function(arra, arrb) {
-    var testaeqb = false;
-    var arrd = [];
-    // var  arragt=[]
-    // var  arrbgt=[]
-    // var  arrbin=[]
+  var testaeqb = false;
+  var arrd = [];
+  // var  arragt=[]
+  // var  arrbgt=[]
+  // var  arrbin=[]
 
-    for (var ia in arra) {
+  for (var ia in arra) {
 
-        for (var b in arrb) {
-            if (arra[ia] === arrb[b]) {
-                testaeqb = true;
-                //      arrbin.push(arra[a])
-            }
-        }
-        if (testaeqb === false) {
-            //  arrgt.push(arrb[a])     
-            arrd.push(arra[ia]);
-        }
+    for (var b in arrb) {
+      if (arra[ia] === arrb[b]) {
+        testaeqb = true;
+        //      arrbin.push(arra[a])
+      }
     }
-
-    for (var ib in arrb) {
-        for (var abi in arrb) {
-            if (arrb[ib] === arrb[abi]) {
-                testaeqb = true;
-            }
-        }
-        if (testaeqb === false) {
-            //  arrbgt.push(arrb[b])
-            arrd.push(arrb[ib]);
-        }
+    if (testaeqb === false) {
+      //  arrgt.push(arrb[a])     
+      arrd.push(arra[ia]);
     }
-    return arrd;
+  }
+
+  for (var ib in arrb) {
+    for (var abi in arrb) {
+      if (arrb[ib] === arrb[abi]) {
+        testaeqb = true;
+      }
+    }
+    if (testaeqb === false) {
+      //  arrbgt.push(arrb[b])
+      arrd.push(arrb[ib]);
+    }
+  }
+  return arrd;
 };
 
 
@@ -380,18 +380,18 @@ smt.arradiffb = function(arra, arrb) {
  * @return{array} arrd    ,  A  B same parts
  */
 smt.arraoverb = function(arra, arrb) {
-    // var  arragt=[]
-    // var  arrbgt=[]
-    var arrbin = {};
-    for (var a in arra) {
-        for (var b in arrb) {
-            if (arra[a] === arrb[b]) {
-                arrbin[a] = arra[a];
-            }
-        }
+  // var  arragt=[]
+  // var  arrbgt=[]
+  var arrbin = {};
+  for (var a in arra) {
+    for (var b in arrb) {
+      if (arra[a] === arrb[b]) {
+        arrbin[a] = arra[a];
+      }
     }
+  }
 
-    return arrbin;
+  return arrbin;
 };
 
 
@@ -404,20 +404,20 @@ smt.arraoverb = function(arra, arrb) {
  * @return{array} arrm    ,  A more than B
  */
 smt.arragtb = function(arra, arrb) {
-    var arrm = [];
-    var testeach = false;
-    for (var a in arra) {
+  var arrm = [];
+  var testeach = false;
+  for (var a in arra) {
 
-        for (var b in arrb) {
-            if (arra[a] === arrb[b]) {
-                testeach = true;
-            }
-        }
-        if (testeach === false) {
-            arrm.push(arra[a]);
-        }
+    for (var b in arrb) {
+      if (arra[a] === arrb[b]) {
+        testeach = true;
+      }
     }
-    return arrm;
+    if (testeach === false) {
+      arrm.push(arra[a]);
+    }
+  }
+  return arrm;
 };
 
 
@@ -427,9 +427,9 @@ smt.arragtb = function(arra, arrb) {
  * @param{object} obj         , current job
  */
 smt.cloneobj = function(obj1) {
-    var extend = util._extend;
-    var obj2 = extend({}, obj1);
-    return obj2;
+  var extend = util._extend;
+  var obj2 = extend({}, obj1);
+  return obj2;
 };
 
 
@@ -439,16 +439,16 @@ smt.cloneobj = function(obj1) {
  * @param{object} obj         , current job
  */
 smt.clone = function(obj) {
-    if (obj === null || "object" !== typeof obj) {
-        return obj;
+  if (obj === null || "object" !== typeof obj) {
+    return obj;
+  }
+  var copy = obj.constructor();
+  for (var attr in obj) {
+    if (obj.hasOwnProperty(attr)) {
+      copy[attr] = obj[attr];
     }
-    var copy = obj.constructor();
-    for (var attr in obj) {
-        if (obj.hasOwnProperty(attr)) {
-            copy[attr] = obj[attr];
-        }
-    }
-    return copy;
+  }
+  return copy;
 };
 
 
@@ -459,11 +459,11 @@ smt.clone = function(obj) {
  *  @return{array}          ,  
  */
 smt.obj2arr = function(obj) {
-    var arr = [];
-    for (var o in obj) {
-        arr.push(obj[o]);
-    }
-    return arr;
+  var arr = [];
+  for (var o in obj) {
+    arr.push(obj[o]);
+  }
+  return arr;
 
 };
 
@@ -477,15 +477,15 @@ smt.obj2arr = function(obj) {
  * @return{String}          ,  a combination text of hour  minutes and seconds
  */
 smt.secondsToString = function(seconds) {
-    if (!seconds) {
-        seconds = 0;
-    }
-    //var numyears = Math.floor(seconds / 31536000);
-    //var numdays = Math.floor((seconds % 31536000) / 86400);
-    var numhours = Math.floor(((seconds % 31536000) % 86400) / 3600);
-    var numminutes = Math.floor((((seconds % 31536000) % 86400) % 3600) / 60);
-    var numseconds = Math.floor((((seconds % 31536000) % 86400) % 3600) % 60);
-    return numhours + " h " + numminutes + " m " + numseconds + " s";
+  if (!seconds) {
+    seconds = 0;
+  }
+  //var numyears = Math.floor(seconds / 31536000);
+  //var numdays = Math.floor((seconds % 31536000) / 86400);
+  var numhours = Math.floor(((seconds % 31536000) % 86400) / 3600);
+  var numminutes = Math.floor((((seconds % 31536000) % 86400) % 3600) / 60);
+  var numseconds = Math.floor((((seconds % 31536000) % 86400) % 3600) % 60);
+  return numhours + " h " + numminutes + " m " + numseconds + " s";
 
 };
 
@@ -498,27 +498,27 @@ smt.secondsToString = function(seconds) {
  */
 smt.tobj = function(inobject, varname, end) {
 
-    if (typeof inobject === "string") {
-        smt.tr(inobject);
-    } else {
-        varname = varname || "noNameObj";
-        var inlength = 0;
-        for (var c in inobject) {
-            c = c;
-            inlength++;
-        }
-        smt.tr("there are " + inlength + " objects in " + varname);
-        end = end || inlength;
-
-        var count = 0;
-        for (var j in inobject) {
-            j = j;
-            count++;
-            if (end >= count) {
-                smt.tr("tobj " + varname + ": " + j + ": " + inobject[j]);
-            }
-        }
+  if (typeof inobject === "string") {
+    smt.tr(inobject);
+  } else {
+    varname = varname || "noNameObj";
+    var inlength = 0;
+    for (var c in inobject) {
+      c = c;
+      inlength++;
     }
+    smt.tr("there are " + inlength + " objects in " + varname);
+    end = end || inlength;
+
+    var count = 0;
+    for (var j in inobject) {
+      j = j;
+      count++;
+      if (end >= count) {
+        smt.tr("tobj " + varname + ": " + j + ": " + inobject[j]);
+      }
+    }
+  }
 };
 
 
@@ -531,10 +531,10 @@ smt.tobj = function(inobject, varname, end) {
  */
 
 smt.translatestr = function(str, dictobj) {
-    for (var d in dictobj) {
-        str = str.replace(d, dictobj[d]);
-    }
-    return str;
+  for (var d in dictobj) {
+    str = str.replace(d, dictobj[d]);
+  }
+  return str;
 };
 
 
@@ -546,19 +546,19 @@ smt.translatestr = function(str, dictobj) {
  * @return{array} newarr  ,   join several obj and convert to array 
  */
 smt.joinAsArray = function(orgarr) {
-    // get first array as target array
-    var newarr = [];
-    for (var o in orgarr) {
-        newarr.push(orgarr[o]);
+  // get first array as target array
+  var newarr = [];
+  for (var o in orgarr) {
+    newarr.push(orgarr[o]);
+  }
+  // get rest arrays
+  var extarr = [].slice.call(arguments, 1); // choose all additional args , Array.prototype.slice.call(arguments,1)
+  for (var e in extarr) {
+    for (var key in extarr[e]) {
+      newarr.push(extarr[e][key]);
     }
-    // get rest arrays
-    var extarr = [].slice.call(arguments, 1); // choose all additional args , Array.prototype.slice.call(arguments,1)
-    for (var e in extarr) {
-        for (var key in extarr[e]) {
-            newarr.push(extarr[e][key]);
-        }
-    }
-    return newarr;
+  }
+  return newarr;
 };
 
 
@@ -567,65 +567,65 @@ smt.joinAsArray = function(orgarr) {
  * enumerate each object in a object to match valname
  */
 smt.enmuobj = function(scope, valname, val, docb) {
-    for (var i in scope) {
-        if (scope[i][valname] === val) {
-            docb(scope, i);
-            break;
-        }
+  for (var i in scope) {
+    if (scope[i][valname] === val) {
+      docb(scope, i);
+      break;
     }
+  }
 };
 
 
 
 
 smt.func2obj = function(infunc) {
-    //initial args
-    return {
-        cjb: {},
-        opt: {
-            id: 0
-        },
-        firstline: infunc.toString().match(/function.*/)[0],
-        funname: infunc.toString().match(/function.*/)[0].match(/\s.*?\s?(?=\()/)[0].match(/\S+/)[0],
-        run: function() {
-            var its = this;
-            var lastargs = arguments.length - 1;
-            var opt = arguments[lastargs];
-            its.startpart(opt.id);
-            var newargs = smt.joinAsArray(arguments, [its.callbacks]);
-            infunc.apply(its, newargs);
-        },
-        // callbacks arguments is assigned in real functions, normally it is callback(cjb, opt) ,  callback.apply(this, [].slice.call(arguments,  0, arguments.length-2)
-        callbacks: function() {
-            // when call a callback in a function, the last param should always be a opt object
-            var its = this;
-            var id = arguments[arguments.length - 1].fid;
-            its.endpart(id);
-            if (its.callback) {
-                if (typeof its.callback === "function") {
-                    its.callback = [its.callback];
-                }
-                //tr(">"+ funname + " has "+ callback.length +" callbacks")
-                for (var f in its.callback) {
-                    //tr("> Start ", (parseInt(f)+1) , "/" , callback.length , " callbacks of" , funname ,"] for task id", id ," :\n")
-                    if (typeof its.callback[f] !== "function") {
-                        smt.tr("No callback need to run !");
-                    } else {
-                        its.callback[f].apply(this, arguments);
-                    }
-                }
-            } else {
-                //smt.tr("All callbacks finished!  task id: " + id + "\n")
-            }
-        },
-        // log initialing a input function
-        startpart: function(id) {
-            smt.tr(">>SSS Start of [", this.funname, "] for task id", id);
-        },
-        endpart: function(id) {
-            smt.tr(">>EEE   End of [", this.funname, "] for task id", id, ", and start callback...\n");
+  //initial args
+  return {
+    cjb: {},
+    opt: {
+      id: 0
+    },
+    firstline: infunc.toString().match(/function.*/)[0],
+    funname: infunc.toString().match(/function.*/)[0].match(/\s.*?\s?(?=\()/)[0].match(/\S+/)[0],
+    run: function() {
+      var its = this;
+      var lastargs = arguments.length - 1;
+      var opt = arguments[lastargs];
+      its.startpart(opt.id);
+      var newargs = smt.joinAsArray(arguments, [its.callbacks]);
+      infunc.apply(its, newargs);
+    },
+    // callbacks arguments is assigned in real functions, normally it is callback(cjb, opt) ,  callback.apply(this, [].slice.call(arguments,  0, arguments.length-2)
+    callbacks: function() {
+      // when call a callback in a function, the last param should always be a opt object
+      var its = this;
+      var id = arguments[arguments.length - 1].fid;
+      its.endpart(id);
+      if (its.callback) {
+        if (typeof its.callback === "function") {
+          its.callback = [its.callback];
         }
-    };
+        //tr(">"+ funname + " has "+ callback.length +" callbacks")
+        for (var f in its.callback) {
+          //tr("> Start ", (parseInt(f)+1) , "/" , callback.length , " callbacks of" , funname ,"] for task id", id ," :\n")
+          if (typeof its.callback[f] !== "function") {
+            smt.tr("No callback need to run !");
+          } else {
+            its.callback[f].apply(this, arguments);
+          }
+        }
+      } else {
+        //smt.tr("All callbacks finished!  task id: " + id + "\n")
+      }
+    },
+    // log initialing a input function
+    startpart: function(id) {
+      smt.tr(">>SSS Start of [", this.funname, "] for task id", id);
+    },
+    endpart: function(id) {
+      smt.tr(">>EEE   End of [", this.funname, "] for task id", id, ", and start callback...\n");
+    }
+  };
 };
 
 
@@ -637,12 +637,12 @@ smt.func2obj = function(infunc) {
  * @return{option} 
  */
 smt.assignErr = function(option, err, callback) {
-    option.err = err;
-    smt.tr(err, err.stack); // an error occurred
-    if (callback) {
-        callback(option);
-    }
-    return option;
+  option.err = err;
+  smt.tr(err, err.stack); // an error occurred
+  if (callback) {
+    callback(option);
+  }
+  return option;
 };
 
 
@@ -657,22 +657,22 @@ smt.assignErr = function(option, err, callback) {
  * @return{string} str  ,  return result string 
  */
 smt.makecb = function(infunc) {
-    var restargs = [];
-    for (var a = 1; a < arguments.length; a++) {
-        restargs.push(arguments[a]);
+  var restargs = [];
+  for (var a = 1; a < arguments.length; a++) {
+    restargs.push(arguments[a]);
+  }
+  //console.log("customized arguments:",restargs)
+  var appcb = function() {
+    //console.log("inherit arguments:",arguments)
+    var newargs = [];
+    for (var arg in arguments) {
+      newargs.push(arguments[arg]);
     }
-    //console.log("customized arguments:",restargs)
-    var appcb = function() {
-        //console.log("inherit arguments:",arguments)
-        var newargs = [];
-        for (var arg in arguments) {
-            newargs.push(arguments[arg]);
-        }
-        newargs = newargs.concat(restargs);
-        //  console.log("new arguments:",newargs)
-        infunc.apply(null, newargs);
-    };
-    return appcb;
+    newargs = newargs.concat(restargs);
+    //  console.log("new arguments:",newargs)
+    infunc.apply(null, newargs);
+  };
+  return appcb;
 };
 
 
@@ -686,10 +686,10 @@ smt.makecb = function(infunc) {
  * @return{object} orgObj  ,  return result object
  */
 smt.mergeobj = function(orgObj, appendObj) {
-    for (var o in appendObj) {
-        orgObj[o] = appendObj[o];
-    }
-    return orgObj;
+  for (var o in appendObj) {
+    orgObj[o] = appendObj[o];
+  }
+  return orgObj;
 };
 
 
@@ -703,16 +703,16 @@ smt.mergeobj = function(orgObj, appendObj) {
  * @return{string} str  ,  return result string 
  */
 smt.tolen = function(str, length) {
-    str = str.toString();
-    if (str.length < length) {
-        str = "0" + str;
-        smt.tolen(str, length);
-    }
-    if (str.length > length) {
-        str = str.substring(1);
-        smt.tolen(str, length);
-    }
-    return str;
+  str = str.toString();
+  if (str.length < length) {
+    str = "0" + str;
+    smt.tolen(str, length);
+  }
+  if (str.length > length) {
+    str = str.substring(1);
+    smt.tolen(str, length);
+  }
+  return str;
 };
 
 
@@ -723,7 +723,7 @@ smt.tolen = function(str, length) {
  * @return{Int} return  ,  return max of result number
  */
 smt.getMaxOfArray = function(numArray) {
-    return Math.max.apply(null, numArray);
+  return Math.max.apply(null, numArray);
 };
 
 
@@ -734,14 +734,14 @@ smt.getMaxOfArray = function(numArray) {
  *  fill 0 in front of  digits by assigned digits number
  */
 smt.filldigits = function(str, digits) {
-    if (!digits) {
-        digits = 2;
-    }
-    str = str.toString();
-    while (str.length < digits) {
-        str = "0" + str;
-    }
-    return str;
+  if (!digits) {
+    digits = 2;
+  }
+  str = str.toString();
+  while (str.length < digits) {
+    str = "0" + str;
+  }
+  return str;
 };
 
 
@@ -751,19 +751,19 @@ smt.filldigits = function(str, digits) {
  */
 smt.gettime = function(cut) {
 
-    var ms = new Date();
-    var yy = ms.getYear().toString().substring(1);
-    var mm = smt.filldigits(ms.getMonth() + 1, 2);
-    var dd = smt.filldigits(ms.getDate(), 2);
+  var ms = new Date();
+  var yy = ms.getYear().toString().substring(1);
+  var mm = smt.filldigits(ms.getMonth() + 1, 2);
+  var dd = smt.filldigits(ms.getDate(), 2);
 
-    var hh = smt.filldigits(ms.getHours(), 2);
-    var mi = smt.filldigits(ms.getMinutes(), 2);
-    var ss = smt.filldigits(ms.getSeconds(), 2);
-    var result = yy + mm + dd + "-" + hh + mi + ss;
-    if (!cut) {
-        cut = result.length;
-    }
-    return result.substring(0, cut);
+  var hh = smt.filldigits(ms.getHours(), 2);
+  var mi = smt.filldigits(ms.getMinutes(), 2);
+  var ss = smt.filldigits(ms.getSeconds(), 2);
+  var result = yy + mm + dd + "-" + hh + mi + ss;
+  if (!cut) {
+    cut = result.length;
+  }
+  return result.substring(0, cut);
 };
 
 
@@ -775,8 +775,8 @@ smt.gettime = function(cut) {
  *  get parent path, return string
  */
 smt.uppath = function() {
-    var workpath = process.cwd();
-    return workpath.substring(0, workpath.lastIndexOf("/"));
+  var workpath = process.cwd();
+  return workpath.substring(0, workpath.lastIndexOf("/"));
 };
 
 
@@ -785,7 +785,7 @@ smt.uppath = function() {
  *  get parent path, return string
  */
 String.prototype.replaceall = function(search, tostr) {
-    return this.split(search).join(tostr);
+  return this.split(search).join(tostr);
 };
 
 
@@ -794,11 +794,11 @@ String.prototype.replaceall = function(search, tostr) {
  * insert char in a string
  */
 String.prototype.splice = function(idx, rem, s) {
-    if (typeof rem === "string") {
-        s = rem;
-        rem = 0;
-    }
-    return (this.slice(0, idx) + s + this.slice(idx + Math.abs(rem)));
+  if (typeof rem === "string") {
+    s = rem;
+    rem = 0;
+  }
+  return (this.slice(0, idx) + s + this.slice(idx + Math.abs(rem)));
 };
 
 
@@ -808,20 +808,20 @@ String.prototype.splice = function(idx, rem, s) {
  * object slice
  */
 Object.prototype.slice = function(s, e) {
-    if (!e) {
-        e = smt.osize(e);
+  if (!e) {
+    e = smt.osize(e);
+  }
+  var c = 0;
+  for (var i in this) {
+    if (c < s || c > e) {
+      delete this[i];
     }
-    var c = 0;
-    for (var i in this) {
-        if (c < s || c > e) {
-            delete this[i];
-        }
-        c++;
-    }
-    return this;
+    c++;
+  }
+  return this;
 };
 Object.defineProperty(Object.prototype, "slice", {
-    enumerable: false
+  enumerable: false
 });
 
 
@@ -831,7 +831,7 @@ Object.defineProperty(Object.prototype, "slice", {
  * replaceAll for string
  */
 String.prototype.replaceAll = function(search, tostr) {
-    return this.split(search).join(tostr);
+  return this.split(search).join(tostr);
 };
 
 
@@ -841,9 +841,9 @@ String.prototype.replaceAll = function(search, tostr) {
  *  get class name of a object
  */
 smt.getname = function(Object) {
-    var funcNameRegex = /smt. = function(.{1,})\(/;
-    var results = (funcNameRegex).exec((Object).constructor.toString());
-    return (results && results.length > 1) ? results[1] : "";
+  var funcNameRegex = /smt. = function(.{1,})\(/;
+  var results = (funcNameRegex).exec((Object).constructor.toString());
+  return (results && results.length > 1) ? results[1] : "";
 };
 
 
@@ -854,7 +854,7 @@ smt.getname = function(Object) {
  */
 
 smt.finishfn = function() {
-    smt.tr("Task finished");
+  smt.tr("Task finished");
 };
 
 
@@ -868,26 +868,26 @@ smt.finishfn = function() {
  *  @param{object} object   ,  show mem use of this param
  */
 smt.trobjmem = function(object) {
-    var objectList = [];
-    var stack = [object];
-    var bytes = 0;
-    while (stack.length) {
-        var value = stack.pop();
-        if (typeof value === "boolean") {
-            bytes += 4;
-        } else if (typeof value === "string") {
-            bytes += value.length * 2;
-        } else if (typeof value === "number") {
-            bytes += 8;
-        } else if (typeof value === "object" && objectList.indexOf(value) === -1) {
-            objectList.push(value);
-            for (var i in value) {
-                stack.push(value[i]);
-            }
-        }
+  var objectList = [];
+  var stack = [object];
+  var bytes = 0;
+  while (stack.length) {
+    var value = stack.pop();
+    if (typeof value === "boolean") {
+      bytes += 4;
+    } else if (typeof value === "string") {
+      bytes += value.length * 2;
+    } else if (typeof value === "number") {
+      bytes += 8;
+    } else if (typeof value === "object" && objectList.indexOf(value) === -1) {
+      objectList.push(value);
+      for (var i in value) {
+        stack.push(value[i]);
+      }
     }
-    smt.tr(smt.shortenunit(parseInt(bytes)));
-    return bytes;
+  }
+  smt.tr(smt.shortenunit(parseInt(bytes)));
+  return bytes;
 };
 
 
@@ -897,47 +897,47 @@ smt.trobjmem = function(object) {
  *  http request reaturn full body
  */
 smt.httpfullbody = function(opt) {
-    opt.sentHost = opt.sentHost || "127.0.0.1";
-    opt.sentPort = opt.sentPort || 80;
-    opt.sentPath = opt.sentPath || "/";
-    opt.sentMethod = opt.sentMethod || "GET";
-    opt.callback = opt.callback || null;
-    opt.jsonpcallback = opt.jsonpcallback || null;
-    opt.sentQuery = opt.sentQuery || "";
-    smt.tc(opt.callback);
-    var reqopt = {
-        hostname: opt.sentHost,
-        port: opt.sentPort,
-        path: opt.sentPath,
-        method: opt.sentMethod,
-    };
+  opt.sentHost = opt.sentHost || "127.0.0.1";
+  opt.sentPort = opt.sentPort || 80;
+  opt.sentPath = opt.sentPath || "/";
+  opt.sentMethod = opt.sentMethod || "GET";
+  opt.callback = opt.callback || null;
+  opt.jsonpcallback = opt.jsonpcallback || null;
+  opt.sentQuery = opt.sentQuery || "";
+  smt.tc(opt.callback);
+  var reqopt = {
+    hostname: opt.sentHost,
+    port: opt.sentPort,
+    path: opt.sentPath,
+    method: opt.sentMethod,
+  };
 
-    var proxyreq = http.request(reqopt, function(proxyres) {
-        var returnStatus = proxyres.statusCode;
-        var returnHeaders = JSON.stringify(proxyres.headers);
-        smt.tr("STATUS: " + returnStatus);
-        smt.tr("HEADERS: " + returnHeaders);
-        proxyres.setEncoding("utf8");
-        var returnBody = "";
-        proxyres.on("data", function(chunk) {
-            returnBody = returnBody + chunk;
-        });
-        proxyres.on("end", function() {
-            var resBody = returnBody;
-            if (opt.jsonpcallback) {
-                resBody = opt.jsonpcallback + "(" + resBody + ")";
-            }
-            opt.callback(resBody);
-        });
+  var proxyreq = http.request(reqopt, function(proxyres) {
+    var returnStatus = proxyres.statusCode;
+    var returnHeaders = JSON.stringify(proxyres.headers);
+    smt.tr("STATUS: " + returnStatus);
+    smt.tr("HEADERS: " + returnHeaders);
+    proxyres.setEncoding("utf8");
+    var returnBody = "";
+    proxyres.on("data", function(chunk) {
+      returnBody = returnBody + chunk;
     });
+    proxyres.on("end", function() {
+      var resBody = returnBody;
+      if (opt.jsonpcallback) {
+        resBody = opt.jsonpcallback + "(" + resBody + ")";
+      }
+      opt.callback(resBody);
+    });
+  });
 
-    proxyreq.on("error", function(e) {
-        smt.tr("problem with request: " + e.message);
-    });
-    if (opt.sentQuery) {
-        proxyreq.write(opt.sentQuery);
-    }
-    proxyreq.end();
+  proxyreq.on("error", function(e) {
+    smt.tr("problem with request: " + e.message);
+  });
+  if (opt.sentQuery) {
+    proxyreq.write(opt.sentQuery);
+  }
+  proxyreq.end();
 };
 
 
@@ -952,27 +952,27 @@ smt.httpfullbody = function(opt) {
  * @return{null} 
  */
 smt.runcbs = function(funcArr) {
-    for (var f = 1; f < funcArr.length; f++) {
-        var setflag = 0;
-        var funcObj = {}; //  a temp obj to store callback obj of next function 
-        if (!(funcArr[f] instanceof Array)) {
-            funcArr[f] = [funcArr[f]];
-        }
-        for (var r in funcArr[f]) {
-            if (typeof funcArr[f][r].run === "function") {
-                // set a temp or current child in child
-                funcObj = funcArr[f][r];
-                // overwirte current to its own run 
-                funcArr[f][r] = funcArr[f][r].run;
-                setflag = 1;
-            }
-        }
-        funcArr[f - 1].callback = funcArr[f];
-        // set current object  to the lastest in funcArr[f] which has run
-        if (setflag === 1) {
-            funcArr[f] = funcObj;
-        }
+  for (var f = 1; f < funcArr.length; f++) {
+    var setflag = 0;
+    var funcObj = {}; //  a temp obj to store callback obj of next function 
+    if (!(funcArr[f] instanceof Array)) {
+      funcArr[f] = [funcArr[f]];
     }
+    for (var r in funcArr[f]) {
+      if (typeof funcArr[f][r].run === "function") {
+        // set a temp or current child in child
+        funcObj = funcArr[f][r];
+        // overwirte current to its own run 
+        funcArr[f][r] = funcArr[f][r].run;
+        setflag = 1;
+      }
+    }
+    funcArr[f - 1].callback = funcArr[f];
+    // set current object  to the lastest in funcArr[f] which has run
+    if (setflag === 1) {
+      funcArr[f] = funcObj;
+    }
+  }
 };
 
 
@@ -981,22 +981,47 @@ smt.runcbs = function(funcArr) {
  * run in serials
  */
 smt.runcbsfn = function(funcArr) {
-    var funcObjArr = [];
-    for (var f = 0; f < funcArr.length - 1; f++) {
-        //tr(f)
-        //tr(funcArr[f])
-        var newobj = new smt.func2obj(funcArr[f]);
-        funcObjArr.push(newobj);
+  var funcObjArr = [];
+  for (var f = 0; f < funcArr.length - 1; f++) {
+    //tr(f)
+    //tr(funcArr[f])
+    var newobj = new smt.func2obj(funcArr[f]);
+    funcObjArr.push(newobj);
+  }
+  smt.tr(funcObjArr.length);
+  smt.runcbs(funcObjArr);
+  return funcObjArr;
+};
+
+
+/**
+ * get children of object
+ * @param{obj} object   ,  the object inspect on 
+ * @param{type} string   ,  the type of children, as a filter
+ * @param{hide} Boolean    ,  boolean to switch show value of children
+ * @return{array} 
+ */
+smt.getchildren = function getChildren(obj, type, hide) {
+  var result = [];
+  for (var id in obj) {
+    try {
+      if (typeof(obj[id]) === type || type === "all") {
+        if (hide) {
+          result.push(id);
+        } else {
+          result.push(id + ": " + obj[id].toString());
+        }
+      }
+    } catch (err) {
+      result.push(id + ": inaccessible");
     }
-    smt.tr(funcObjArr.length);
-    smt.runcbs(funcObjArr);
-    return funcObjArr;
+  }
+  return result;
 };
 
 
 
-
 if (isNode) {
-    smt.creatfolder("log");
-    //    module.exports = exports;
+  smt.creatfolder("log");
+  //    module.exports = exports;
 }

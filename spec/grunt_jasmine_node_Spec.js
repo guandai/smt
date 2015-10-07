@@ -2,7 +2,7 @@ var smt = require("../src/smt");
 
 describe("test each functions ", function() {
     // var tr = smt.tr
-    var testobj = {
+    var orgobj = {
         a: 1,
         b: true,
         c: "I am a string",
@@ -10,6 +10,12 @@ describe("test each functions ", function() {
             console.log(arg);
         }
     };
+
+    var testobj = {}
+
+    beforeEach(function(){
+         testobj = smt.clone(orgobj)
+    })
 
     it("basic test", function() {
         expect(true).toBe(true);
@@ -43,6 +49,11 @@ describe("test each functions ", function() {
     });
 
 
+     it(" getchildren by type ", function() {
+        //console.log(testresult)
+        expect( smt.getchildren(testobj,"all", true)  ).toEqual( ["a","b","c","d"] )
+        expect( smt.getchildren(testobj,"function", true)  ).toEqual( ["d"] );
+    });
 });
 
 
@@ -71,7 +82,6 @@ describe("http test in smt", function() {
 
      it(" object slice ", function() {
         //console.log(testresult)
-
-        expect(testresult.length).toEqual(2449);
+        expect(testresult.length).toBeGreaterThan(2449);
     });
 });
